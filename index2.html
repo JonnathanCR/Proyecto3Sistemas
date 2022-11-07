@@ -54,7 +54,7 @@
 <script src="./data/polygon.js"></script>
 <script src="./data/nepaldata.js"></script>
 <script src="./data/geo_cantones.json"></script>
-<script src="./data/pSanjoseMama.js"></script>
+<script src="./data/hospitales2008crtm05.json"></script>
 <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 <script src="./data/usstates.js"></script>
 <script>
@@ -121,7 +121,7 @@ Stamen_Watercolor.addTo(map);
 //var linedata = L.geoJSON(lineJSON).addTo(map);
 
 var nepalData = L.geoJSON(canto).addTo(map);
-var pointdata = L.geoJSON(pSJMama).addTo(map);
+var pointdata = L.geoJSON(hospi).addTo(map);
 //var polygondata = L.geoJSON(polygonJSON,{
 //    onEachFeature: function(feature,layer){
 //        layer.bindPopup('<b>This is a </b>' + feature.properties.name)
