@@ -135,7 +135,7 @@ var pointdata = L.geoJSON(pSJMama).addTo(map);
 	
 	
  //convert data points to [lat,lng, intensity]
-  let SanjoseMamaPoints = pointdata.feature.geometry.coordinates.slice().reverse().concat([0.1]));
+  let SanjoseMamaPoints = pointdata.feature.geometry.coordinates.slice().reverse().concat([0.1]);
   
   //Add heatmap layer
   let crimeLayer = heatLayer(SanjoseMamaPoints,  {
