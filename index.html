@@ -72,10 +72,10 @@ osm.addTo(map);
                       MARKER               
 ===================================================*/
 
-var singleMarker = L.marker([28.25255,83.97669]);
-singleMarker.addTo(map);
-var popup = singleMarker.bindPopup('This is a popup')
-popup.addTo(map);
+//var singleMarker = L.marker([28.25255,83.97669]);
+//singleMarker.addTo(map);
+//var popup = singleMarker.bindPopup('This is a popup')
+//popup.addTo(map);
 
 /*===================================================
                      TILE LAYER               
@@ -135,17 +135,17 @@ var pointdata = L.geoJSON(pSJMama).addTo(map);
 	
 	
  //convert data points to [lat,lng, intensity]
-  let SanjoseMamaPoints = pointdata.feature.geometry.coordinates.slice().reverse().concat([0.1]);
+  //let SanjoseMamaPoints = pointdata.feature.geometry.coordinates.slice().reverse().concat([0.1]);
   
   //Add heatmap layer
-  let crimeLayer = heatLayer(SanjoseMamaPoints,  {
-    minOpacity: 0.5,
-    maxZoom: 18,
-    max: 1.0,
-    radius: 8,
-    blur: 4,
-    gradient: null
-  }).addTo(map);
+ // let crimeLayer = heatLayer(SanjoseMamaPoints,  {
+ //   minOpacity: 0.5,
+ //   maxZoom: 18,
+ //   max: 1.0,
+ //   radius: 8,
+ //   blur: 4,
+ //  gradient: null
+ // }).addTo(map);
 
 /*===================================================
                       LAYER CONTROL               
