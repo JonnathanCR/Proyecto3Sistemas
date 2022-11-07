@@ -117,19 +117,20 @@ Stamen_Watercolor.addTo(map);
                       GEOJSON               
 ===================================================*/
 
-var linedata = L.geoJSON(lineJSON).addTo(map);
-var pointdata = L.geoJSON(pSJMama).addTo(map);
+//var linedata = L.geoJSON(lineJSON).addTo(map);
+
 var nepalData = L.geoJSON(canto).addTo(map);
-var polygondata = L.geoJSON(polygonJSON,{
-    onEachFeature: function(feature,layer){
-        layer.bindPopup('<b>This is a </b>' + feature.properties.name)
-    },
-    style:{
-        fillColor: 'red',
-        fillOpacity:1,
-        color: 'green'
-    }
-}).addTo(map);
+var pointdata = L.geoJSON(pSJMama).addTo(map);
+//var polygondata = L.geoJSON(polygonJSON,{
+//    onEachFeature: function(feature,layer){
+//        layer.bindPopup('<b>This is a </b>' + feature.properties.name)
+//    },
+//    style:{
+//        fillColor: 'red',
+//        fillOpacity:1,
+//        color: 'green'
+//    }
+//}).addTo(map);
 	
 	
 	
