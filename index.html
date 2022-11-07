@@ -134,19 +134,13 @@ var pointdata = L.geoJSON(pSJMama).addTo(map);
 //}).addTo(map);
 	
 	
-	
+var p = [];
+json.features.forEach(funtion(feature){
+	p.push([feature.geometry.cordinates[1], feature.geometry.cordinates[0], 3]);
  //convert data points to [lat,lng, intensity]
- function geoJson2heat(geojson, intensity) {
-  return geojson.features.map(function(feature) {
-    return [
-      feature.geometry.coordinates[0][1],
-      feature.geometry.coordinates[0][0],
-      feature.properties[intensity]
-    ];
-  });
-}
+var heat = L.heatlayer(p,{redius: 25}).addTo(map);
   //Add heatmap layer
-  let crimeLayer = heatLayer(geoJson2heat(pointdata, 2),  {
+  /*let crimeLayer = heatLayer(geoJson2heat(pointdata, 2),  {
     minOpacity: 0.5,
     maxZoom: 18,
     max: 1.0,
@@ -154,7 +148,7 @@ var pointdata = L.geoJSON(pSJMama).addTo(map);
    blur: 4,
    gradient: null
   }).addTo(map);
-
+*/
 /*===================================================
                       LAYER CONTROL               
 ===================================================*/
