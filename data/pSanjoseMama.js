@@ -1,4 +1,4 @@
-{"type":"FeatureCollection", "features": [
+var pSJMama = {"type":"FeatureCollection", "features": [
 {"type":"Feature","geometry":{"type":"Point","coordinates":[-2061342.0430280569,1184607.907622816]},"properties":{"cat":1,"geo_provincias_cat":7,"geo_provincias_FID":7,"geo_provincias_NPROVINCIA":"SAN JOSE","geo_provincias_NUM_CANTO":0,"geo_provincias_COD_PROV":0,"geo_provincias_SHAPE_Leng":0,"geo_provincias_SHAPE_Area":0}},
 {"type":"Feature","geometry":{"type":"Point","coordinates":[-2086599.6849124187,1181172.4929010542]},"properties":{"cat":2,"geo_provincias_cat":7,"geo_provincias_FID":7,"geo_provincias_NPROVINCIA":"SAN JOSE","geo_provincias_NUM_CANTO":0,"geo_provincias_COD_PROV":0,"geo_provincias_SHAPE_Leng":0,"geo_provincias_SHAPE_Area":0}},
 {"type":"Feature","geometry":{"type":"Point","coordinates":[-2065638.2042288939,1186539.278149479]},"properties":{"cat":3,"geo_provincias_cat":7,"geo_provincias_FID":7,"geo_provincias_NPROVINCIA":"SAN JOSE","geo_provincias_NUM_CANTO":0,"geo_provincias_COD_PROV":0,"geo_provincias_SHAPE_Leng":0,"geo_provincias_SHAPE_Area":0}},
