@@ -1,11 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leaflet Tutorial</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css"
+   integrity="sha512-07I2e+7D8p6he1SIM+1twR5TIrhUQn9+I6yjqD53JQjFiMf8EtC93ty0/5vJTZGF8aAocvHYNEDJajGdNx1IsQ=="
+   crossorigin=""/>
+   <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"
+   integrity="sha512-A7vV8IFfih/D732iSSKi20u/ooOfj/AGehOKq0f4vLT1Zr2Y+RX7C+w8A1gaSasGtRUZpF/NZgzSAu4/Gc41Lg=="
+   crossorigin=""></script>
+   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
     <script src="leaflet-heat.js"></script>
     <style>
@@ -14,32 +16,6 @@
             width: 100%;
         }
 
-        .info {
-    padding: 6px 8px;
-    font: 14px/16px Arial, Helvetica, sans-serif;
-    background: white;
-    background: rgba(255,255,255,0.8);
-    box-shadow: 0 0 15px rgba(0,0,0,0.2);
-    border-radius: 5px;
-}
-.info h4 {
-    margin: 0 0 5px;
-    color: #777;
-}
-
-.legend {
-    line-height: 18px;
-    color: #555;
-}
-.legend i {
-    width: 18px;
-    height: 18px;
-    float: left;
-    margin-right: 8px;
-    opacity: 0.7;
-}
-
-
     </style>
 
 </head>
@@ -47,23 +23,37 @@
     <div id="map"></div>
 </body>
 </html>
-<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 
-<script src="./data/line.js"></script>
-<script src="./data/point.js"></script>
-<script src="./data/polygon.js"></script>
-<script src="./data/nepaldata.js"></script>
+
 <script src="./data/geo_cantones.json"></script>
-<script src="./data/hospitales2008crtm05.json"></script>
+<script src="./data/hospitales.json"></script>
+<script src="./data/clinicas.json"></script>
+<script src="./data/geo_poblados.json"></script>
+
+<script src="./prost/prostAl.json"></script>
+<script src="./prost/prostCa.json"></script>
+<script src="./prost/prostGu.json"></script>
+<script src="./prost/prostHe.json"></script>
+<script src="./prost/prostLi.json"></script>
+<script src="./prost/prostPu.json"></script>
+<script src="./prost/prostSJ.json"></script>
+
+<script src="./mama/mamaAl.json"></script>
+<script src="./mama/mamaCa.json"></script>
+<script src="./mama/mamaGu.json"></script>
+<script src="./mama/mamaHe.json"></script>
+<script src="./mama/mamaLi.json"></script>
+<script src="./mama/mamaPu.json"></script>
+<script src="./mama/mamaSJ.json"></script>
 <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
-<script src="./data/usstates.js"></script>
+
 <script>
 
     /*===================================================
                       OSM  LAYER               
 ===================================================*/
 
-    var map = L.map('map').setView([40.7128,-74.0060], 4);
+    var map = L.map('map').setView([10.21770,-83.79370], 7);
 var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 });
@@ -118,39 +108,128 @@ Stamen_Watercolor.addTo(map);
                       GEOJSON               
 ===================================================*/
 
-//var linedata = L.geoJSON(lineJSON).addTo(map);
 
-var nepalData = L.geoJSON(canto).addTo(map);
-var pointdata = L.geoJSON(hospi).addTo(map);
-//var polygondata = L.geoJSON(polygonJSON,{
-//    onEachFeature: function(feature,layer){
-//        layer.bindPopup('<b>This is a </b>' + feature.properties.name)
-//    },
-//    style:{
-//        fillColor: 'red',
-//        fillOpacity:1,
-//        color: 'green'
-//    }
-//}).addTo(map);
-	
-	
+
+var cantones = L.geoJSON(canto).addTo(map);
+
+var poblac = [];
+for(i=0;i<pobla.length;i++){
+    poblac.push([pobla[i][1],pobla[i][0],pobla[i][2]])
+}
+
+var heatPoblados = L.heatLayer(poblac, {
+  radius: 7,
+  minOpacity : 1,
+  gradient:{0.4:'blue', 0.5: 'lime', 0.6: 'red'}}).addTo(map);
+
+var hospClin = [];
+for(i=0;i<hosp.length;i++){
+    hospClin.push([hosp[i][1],hosp[i][0],hosp[i][2]])
+}
+
+for(i=0;i<clin.length;i++){
+    hospClin.push([clin[i][1],clin[i][0],clin[i][2]])
+} 
+
+var heatHospitales = L.heatLayer(hospClin, {
+  radius: 9,
+  minOpacity : 1,
+  gradient:{0.4:'blue', 0.5: 'lime', 0.6: 'red'}}).addTo(map);
+
+var prostata = [];
+for(i=0;i<prostAl.length;i++){
+    prostata.push([prostAl[i][1],prostAl[i][0],prostAl[i][2]])
+}
+
+
+for(i=0;i<prostCa.length;i++){
+    prostata.push([prostCa[i][1],prostCa[i][0],prostCa[i][2]])
+} 
+
+for(i=0;i<prostGu.length;i++){
+    prostata.push([prostGu[i][1],prostGu[i][0],prostGu[i][2]])
+}
+
+
+for(i=0;i<prostHe.length;i++){
+    prostata.push([prostHe[i][1],prostHe[i][0],prostHe[i][2]])
+} 
+
+for(i=0;i<prostLi.length;i++){
+    prostata.push([prostLi[i][1],prostLi[i][0],prostLi[i][2]])
+}
+
+
+for(i=0;i<prostPu.length;i++){
+    prostata.push([prostPu[i][1],prostPu[i][0],prostPu[i][2]])
+} 
+
+for(i=0;i<prostSJ.length;i++){
+    prostata.push([prostSJ[i][1],prostSJ[i][0],prostSJ[i][2]])
+}
+
+
+var heatProstata = L.heatLayer(prostata, {
+  radius: 10,
+  minOpacity : 1,
+  gradient:{0.4:'blue', 0.5: 'lime', 0.6: 'red'}}).addTo(map);
+
+  var mama = [];
+for(i=0;i<mamaAl.length;i++){
+    mama.push([mamaAl[i][1],mamaAl[i][0],mamaAl[i][2]])
+}
+
+
+for(i=0;i<mamaCa.length;i++){
+    mama.push([mamaCa[i][1],mamaCa[i][0],mamaCa[i][2]])
+} 
+
+for(i=0;i<mamaGu.length;i++){
+    mama.push([mamaGu[i][1],mamaGu[i][0],mamaGu[i][2]])
+}
+
+
+for(i=0;i<mamaHe.length;i++){
+    mama.push([mamaHe[i][1],mamaHe[i][0],mamaHe[i][2]])
+} 
+
+for(i=0;i<mamaLi.length;i++){
+    mama.push([mamaLi[i][1],mamaLi[i][0],mamaLi[i][2]])
+}
+
+
+for(i=0;i<mamaPu.length;i++){
+    mama.push([mamaPu[i][1],mamaPu[i][0],mamaPu[i][2]])
+} 
+
+for(i=0;i<mamaSJ.length;i++){
+    mama.push([mamaSJ[i][1],mamaSJ[i][0],mamaSJ[i][2]])
+} 
+
+var heatMama = L.heatLayer(mama, {
+  radius: 9,
+  minOpacity : 1,
+  gradient:{0.4:'blue', 0.5: 'lime', 0.6: 'red'}}).addTo(map);
 
 /*===================================================
                       LAYER CONTROL               
 ===================================================*/
 
 var baseLayers = {
+    
+    "Poblados":heatPoblados,
+    "Clinicas y Hospitales":heatHospitales,
+    "Prostata":heatProstata,
+    "Mama":heatMama,
+};
+
+var overlays = {
+    "Cantones":cantones,
     "Satellite":googleSat,
     "Google Map":googleStreets,
     "Water Color":Stamen_Watercolor,
     "OpenStreetMap": osm,
-};
-
-var overlays = {
-    //"Marker": singleMarker,
-    "PointData":pointdata,
-    //"LineData":linedata,
-    //"PolygonData":polygondata
+    
 };
 
 L.control.layers(baseLayers, overlays).addTo(map);
