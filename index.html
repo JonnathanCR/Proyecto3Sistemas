@@ -135,7 +135,7 @@ var pointdata = L.geoJSON(pSJMama).addTo(map);
 	
 	
 var p = [];
-json.features.forEach(funtion(feature){
+pointdata.features.forEach(funtion(feature){
 	p.push([feature.geometry.cordinates[1], feature.geometry.cordinates[0], 3]);
  //convert data points to [lat,lng, intensity]
 var heat = L.heatlayer(p,{redius: 25}).addTo(map);
