@@ -49,7 +49,7 @@
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 
 
-
+<script src="./data/geo_poblados.json"></script>
 <script src="./data/hoteles.json"></script>
 <script src="./data/bancos.json"></script>
 <script src="./data/clinicas.json"></script>
@@ -372,8 +372,12 @@ showP6();
 
 
 
-
-
+var CityIcono = L.icon({
+iconUrl: "./images/loca.png",
+iconSize: [30, 35],
+iconAnchor: [15, 30],
+popupAnchor: [0, -30]
+});
 
 var BankIcono = L.icon({
 iconUrl: "./images/bank.png",
@@ -493,6 +497,20 @@ function createP(){
         pointToLayer:(feature,latlng)=>{
         return L.marker(latlng, {
             icon:HospitalIcono
+            })
+        },
+        onEachFeature:(feature = {}, layer)=>{
+            const{properties={}} = feature;
+            const{NOMBRE} = properties;
+            if(!NOMBRE) return;
+            layer.bindPopup(`<p>${NOMBRE}</p>`)
+        }
+    }).addTo(fg);
+
+    var PPueblos = L.geoJSON(pueblos, {
+        pointToLayer:(feature,latlng)=>{
+        return L.marker(latlng, {
+            icon:CityIcono
             })
         },
         onEachFeature:(feature = {}, layer)=>{
