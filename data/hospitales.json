@@ -1,0 +1,6 @@
+var hospitales = {"type":"FeatureCollection", "features": [
+
+{"type":"Feature","geometry":{"type":"Point","coordinates":[-83.78923373863448,10.216799746029512]},"properties":{"cat":6,"NOMBRE":"HOSPITAL DE GUAPILES","TELEFONO":"2710-6801/ 2710-6077","PROVINCIA":"LIMON","CANTON":"POCOCI","DISTRITO":"GUAPILES"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[-83.02983451534642,9.991682243742508]},"properties":{"cat":26,"NOMBRE":"HOSPITAL DR. TONY FACIO C. LIMON","TELEFONO":"2758-2222 / 2758-1056 / 2758-0932","PROVINCIA":"LIMON","CANTON":"LIMON","DISTRITO":"LIMON"}},
+
+]}

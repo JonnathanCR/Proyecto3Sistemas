@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaflet Tutorial</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <style>
+        #map{
+            height: 100vh;
+            width: 100%;
+        }
+
+        .info {
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255,255,255,0.8);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+.info h4 {
+    margin: 0 0 5px;
+    color: #777;
+}
+
+.legend {
+    line-height: 18px;
+    color: #555;
+}
+.legend i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+}
+
+
+    </style>
+
+</head>
+<body>
+    <div id="map"></div>
+</body>
+</html>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+
+
+<script src="./data/hoteles.json"></script>
+<script src="./data/bancos.json"></script>
+<script src="./data/clinicas.json"></script>
+<script src="./data/escuelas.json"></script>
+<script src="./data/gasofa.json"></script>
+<script src="./data/hospitales.json"></script>
+<script src="./data/geo_provincias.json"></script>
+<script src="./data/geo_rios.json"></script>
+<script src="./data/geo_carreteras.json"></script>
+<script src="./data/geo_distritos.json"></script>
+<script src="./data/geo_cantones.json"></script>
+
+<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+<script src="./data/usstates.js"></script>
+<script>
+
+    /*===================================================
+                      OSM  LAYER               
+===================================================*/
+
+    var map = L.map('map').setView([9.892237781000063,-84.51005371899998],8);
+var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+});
+osm.addTo(map);
+
+
+/*===================================================
+                     TILE LAYER               
+===================================================*/
+
+var CartoDB_DarkMatter = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+subdomains: 'abcd',
+	maxZoom: 19
+});
+CartoDB_DarkMatter.addTo(map);
+
+// Google Map Layer
+
+
+
+
+var osm2 = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+}).addTo(map);
+
+
+
+
+
+/*===================================================
+                      GEOJSON               
+===================================================*/
+
+/*var PHoteles = L.geoJSON(hoteles).addTo(map);
+var PBancos = L.geoJSON(bancos).addTo(map);
+var PClinicas = L.geoJSON(clinicas).addTo(map);
+var PEscuelas = L.geoJSON(escuelas).addTo(map);
+var PGasolineras = L.geoJSON(gasolineras).addTo(map);
+var PHospitales = L.geoJSON(hospitales).addTo(map);*/
+
+
+/*===================================================
+                      LAYER CONTROL               
+===================================================*/
+
+var baseLayers = {
+    "Dark": CartoDB_DarkMatter,
+    "OpenStreetMap": osm,
+    "OpenS": osm2,
+};
+
+var overlays = {
+    
+};
+
+L.control.layers(baseLayers, overlays).addTo(map);
+
+
+/*===================================================
+                      SEARCH BUTTON               
+===================================================*/
+
+L.Control.geocoder().addTo(map);
+
+
+/*===================================================
+                      Choropleth Map               
+===================================================*/
+
+/*L.geoJSON(provincias).addTo(map);
+
+L.geoJson(provincias, {style: style}).addTo(map);
+
+function highlightFeature(e) {
+    var layer = e.target;
+
+    layer.setStyle({
+        weight: 5,
+        color: '#666',
+        dashArray: '',
+        fillOpacity: 0.7
+    });
+
+    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+        layer.bringToFront();
+    }
+
+    ;
+}
+
+
+
+var geojson2;
+// ... our listeners
+geojson2 = L.geoJson(provincias);
+
+geojson2 = L.geoJson(provincias, {
+    style: style,
+    onEachFeature: onEachFeature
+}).addTo(map);
+
+function resetHighlight2(e) {
+    geojson2.resetStyle(e.target);
+    info.update();
+}
+
+function onEachFeature3(feature, layer) {
+    layer.on({
+        mouseover: highlightFeature,
+        mouseout: resetHighlight2,
+        click: zoomToFeature
+    });
+}
+*/
+var fg6 = L.featureGroup()
+var fg5 = L.featureGroup()
+var fg4 = L.featureGroup()
+var fg3 = L.featureGroup()
+var fg2 = L.featureGroup();
+var fg = L.featureGroup();
+
+function createP2(){
+    var geoP = L.geoJSON(provincias).addTo(fg2);
+    geoP = L.geoJson(provincias, {
+    style: style,
+    onEachFeature: onEachFeature
+    }).addTo(fg2);
+
+
+   function onEachFeature(feature = {}, layer){
+        layer.on({
+            mouseover: highlightFeature,
+            mouseout: resetHighlight2,
+            click:zoomToFeature2
+        })
+            const{properties={}} = feature;
+            const{NPROVINCIA} = properties;
+            if(!NPROVINCIA) return;
+            layer.bindPopup(`<p>${NPROVINCIA}</p>`)
+        }
+
+    function zoomToFeature2(e) {
+        map.fitBounds(e.target.getBounds());
+    }
+}
+
+function resetHighlight2(e) {
+    var layer = e.target;
+
+    layer.setStyle(style());
+
+    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+        layer.bringToFront();
+    }
+
+    ;
+}
+
+function showP2() {
+    var cur_zoom = map.getZoom();
+    fg2.addTo(map);
+    if(cur_zoom >= 10) {       
+        map.removeLayer(fg2);            
+    } else if(cur_zoom < 10) {            
+        map.addLayer(fg2);                 
+    }
+}
+map.on('zoom', showP2);
+createP2();
+showP2();
+
+function createP3(){
+    var geoR = L.geoJSON(rios).addTo(fg3);
+    geoR = L.geoJson(rios, {
+    style: style2,
+    onEachFeature: onEachFeature
+    }).addTo(fg3);
+
+
+   function onEachFeature(feature = {}, layer){
+        layer.on({
+            mouseover: highlightFeature,
+            mouseout: resetHighlight3,
+            
+        })
+        const{properties={}} = feature;
+        const{NOMBRE} = properties;
+        if(!NOMBRE) return;
+        layer.bindPopup(`<p>${NOMBRE}</p>`)
+    }
+
+    
+}
+
+function resetHighlight3(e) {
+    var layer = e.target;
+
+    layer.setStyle(style2());
+
+    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+        layer.bringToFront();
+    }
+
+    ;
+}
+
+function showP3() {
+    var cur_zoom = map.getZoom();
+    fg3.addTo(map);
+    if(cur_zoom <= 11) {       
+        map.removeLayer(fg3);            
+    } else if(cur_zoom > 11) {            
+        map.addLayer(fg3);                 
+    }
+}
+map.on('zoom', showP3);
+createP3();
+showP3();
+
+function createP4(){
+    var geoC = L.geoJSON(carreteras).addTo(fg4);
+    geoC = L.geoJson(carreteras, {
+    style: style3,
+    onEachFeature: onEachFeature
+    }).addTo(fg4);
+
+
+   function onEachFeature(feature = {}, layer){
+        layer.on({
+            mouseover: highlightFeature,
+            mouseout: resetHighlight4,
+           
+        })
+            
+
+            const{properties={}} = feature;
+            const{CODIGO} = properties;
+            const{TIPO} = properties;
+            if(TIPO == "CARRETERA CANTONAL")  layer.setStyle(style6())
+            if(TIPO == "CARRETERA NACIONAL")  layer.setStyle(style3())
+            if(!CODIGO) return;
+            layer.bindPopup(`<p>${CODIGO}</p>`)
+        }
+
+    
+}
+
+function resetHighlight4(e) {
+    var layer = e.target;
+    
+    layer.setStyle(style3());
+    
+    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+        layer.bringToFront();
+    }
+
+    ;
+}
+
+
+function showP4() {
+    var cur_zoom = map.getZoom();
+    fg4.addTo(map);
+    if(cur_zoom <= 11) {       
+        map.removeLayer(fg4);            
+    } else if(cur_zoom > 11) {            
+        map.addLayer(fg4);                 
+    }
+}
+map.on('zoom', showP4);
+createP4();
+showP4();
+
+function createP5(){
+    var geoD = L.geoJSON(distritos).addTo(fg5);
+    geoD = L.geoJson(distritos, {
+    style: style5,
+    onEachFeature: onEachFeature
+    }).addTo(fg5);
+
+
+   function onEachFeature(feature = {}, layer){
+    layer.on({
+            mouseover: highlightFeature,
+            mouseout: resetHighlight5,
+            
+        })
+            const{properties={}} = feature;
+            const{NDISTRITO} = properties;
+            if(!NDISTRITO) return;
+            layer.bindPopup(`<p>${NDISTRITO}</p>`)
+        }
+
+   
+
+    
+}
+
+function resetHighlight5(e) {
+    var layer = e.target;
+
+    layer.setStyle(style5());
+
+    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+        layer.bringToFront();
+    }
+
+    ;
+}
+
+function showP5() {
+    var cur_zoom = map.getZoom();
+    fg5.addTo(map);
+    if(cur_zoom < 11  | cur_zoom >= 12) {       
+        map.removeLayer(fg5);            
+    } else if(cur_zoom > 10 | cur_zoom < 12) {            
+        map.addLayer(fg5);                 
+    }
+}
+map.on('zoom', showP5);
+createP5();
+showP5();
+
+function createP6(){
+    var geoCan = L.geoJSON(cantones).addTo(fg6);
+    geoCan = L.geoJson(cantones, {
+    style: style4,
+    onEachFeature: onEachFeature
+    }).addTo(fg6);
+
+
+   function onEachFeature(feature = {}, layer){
+    layer.on({
+            mouseover: highlightFeature,
+            mouseout: resetHighlight6,
+        })
+            const{properties={}} = feature;
+            const{NCANTON} = properties;
+            if(!NCANTON) return;
+            layer.bindPopup(`<p>${NCANTON}</p>`)
+        }
+
+    
+    
+}
+
+function resetHighlight6(e) {
+    var layer = e.target;
+
+    layer.setStyle(style4());
+
+    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+        layer.bringToFront();
+    }
+
+    ;
+}
+
+function showP6() {
+    var cur_zoom = map.getZoom();
+    fg6.addTo(map);
+    if(cur_zoom != 10 ) {       
+        map.removeLayer(fg6);            
+    } else if(cur_zoom = 10 ) {            
+        map.addLayer(fg6);                 
+    }
+}
+map.on('zoom', showP6);
+createP6();
+showP6();
+
+
+
+
+
+
+var BankIcono = L.icon({
+iconUrl: "./images/bank.png",
+iconSize: [30, 35],
+iconAnchor: [15, 30],
+popupAnchor: [0, -30]
+});
+
+var ClinicIcono = L.icon({
+iconUrl: "./images/clinic.png",
+iconSize: [30, 35],
+iconAnchor: [15, 30],
+popupAnchor: [0, -30]
+});
+
+var GasIcono = L.icon({
+iconUrl: "./images/gas.png",
+iconSize: [30, 35],
+iconAnchor: [15, 30],
+popupAnchor: [0, -30]
+});
+
+var HatIcono = L.icon({
+iconUrl: "./images/hat.png",
+iconSize: [30, 35],
+iconAnchor: [15, 30],
+popupAnchor: [0, -30]
+});
+
+var HospitalIcono = L.icon({
+iconUrl: "./images/hospital.png",
+iconSize: [30, 35],
+iconAnchor: [15, 30],
+popupAnchor: [0, -30]
+});
+
+var HotelIcono = L.icon({
+iconUrl: "./images/hotel.png",
+iconSize: [30, 35],
+iconAnchor: [15, 30],
+popupAnchor: [0, -30]
+});
+
+function createP(){
+    var PHoteles = L.geoJSON(hoteles, {
+        pointToLayer:(feature,latlng)=>{
+        return L.marker(latlng, {
+            icon:HotelIcono
+            })
+        },
+        onEachFeature:(feature = {}, layer)=>{
+            const{properties={}} = feature;
+            const{NOMBRE} = properties;
+            if(!NOMBRE) return;
+            layer.bindPopup(`<p>${NOMBRE}</p>`)
+        }
+    
+    }).addTo(fg);
+
+    var PBancos = L.geoJSON(bancos, {
+        pointToLayer:(feature,latlng)=>{
+        return L.marker(latlng, {
+            icon:BankIcono
+            })
+        },
+        onEachFeature:(feature = {}, layer)=>{
+            const{properties={}} = feature;
+            const{BANCO} = properties;
+            if(!BANCO) return;
+            layer.bindPopup(`<p>${BANCO}</p>`)
+        }
+    }).addTo(fg);
+
+    var PClinicas = L.geoJSON(clinicas, {
+        pointToLayer:(feature,latlng)=>{
+        return L.marker(latlng, {
+            icon:ClinicIcono
+            })
+        },
+        onEachFeature:(feature = {}, layer)=>{
+            const{properties={}} = feature;
+            const{NOMBRE} = properties;
+            if(!NOMBRE) return;
+            layer.bindPopup(`<p>${NOMBRE}</p>`)
+        }
+    }).addTo(fg);
+
+    var PEscuelas = L.geoJSON(escuelas, {
+        pointToLayer:(feature,latlng)=>{
+        return L.marker(latlng, {
+            icon:HatIcono
+            })
+        },
+        onEachFeature:(feature = {}, layer)=>{
+            const{properties={}} = feature;
+            const{NOMBRE} = properties;
+            if(!NOMBRE) return;
+            layer.bindPopup(`<p>${NOMBRE}</p>`)
+        }
+    }).addTo(fg);
+
+    var PGasolineras = L.geoJSON(gasolineras, {
+        pointToLayer:(feature,latlng)=>{
+        return L.marker(latlng, {
+            icon:GasIcono
+            })
+        },
+        onEachFeature:(feature = {}, layer)=>{
+            const{properties={}} = feature;
+            const{NOMBRE_REC} = properties;
+            if(!NOMBRE_REC) return;
+            layer.bindPopup(`<p>${NOMBRE_REC}</p>`)
+        }
+    }).addTo(fg);
+
+    var PHospitales = L.geoJSON(hospitales, {
+        pointToLayer:(feature,latlng)=>{
+        return L.marker(latlng, {
+            icon:HospitalIcono
+            })
+        },
+        onEachFeature:(feature = {}, layer)=>{
+            const{properties={}} = feature;
+            const{NOMBRE} = properties;
+            if(!NOMBRE) return;
+            layer.bindPopup(`<p>${NOMBRE}</p>`)
+        }
+    }).addTo(fg);
+
+    /*var PHoteles2 = L.marker(hoteles, {icon:HotelIcono}).addTo(fg);
+    var PBancos2 = L.marker(bancos).addTo(fg);
+    var PClinicas2 = L.marker(clinicas).addTo(fg);
+    var PEscuelas2 = L.marker(escuelas).addTo(fg);
+    var PGasolineras2 = L.marker(gasolineras).addTo(fg);
+    var PHospitales2 = L.marker(hospitales).addTo(fg);*/
+    
+   //var label = L.marker(layer.getLatLng(),{icon: icon}).addTo(fg);
+  
+} 
+
+function showP() {
+    var cur_zoom = map.getZoom();
+    fg.addTo(map);
+    if(cur_zoom <= 12) {       
+        map.removeLayer(fg);            
+    } else if(cur_zoom > 12) {            
+        map.addLayer(fg);                 
+    }
+}
+map.on('zoom', showP);
+createP();
+showP();
+
+
+function style(feature) {
+    return {
+        weight: 2,
+        opacity: 0.3,
+        color: 'purple',
+        dashArray: '3',
+        fillOpacity: 0.7
+    };
+}
+
+function style2() {
+    return { 
+        weight: 4,
+        opacity: 1,
+        color: 'blue',
+        dashArray: '3',
+        fillOpacity: 0.7
+    };
+}
+
+function style3() {
+    return { 
+        weight: 4,
+        opacity: 1,
+        color: 'black',
+        dashArray: '3',
+        fillOpacity: 0.7
+    };
+}
+
+function style4() {
+    return { 
+        weight: 2,
+        opacity: 0.3,
+        color: 'orange',
+        dashArray: '3',
+        fillOpacity: 0.7
+    };
+}
+
+function style5() {
+    return { 
+        weight: 2,
+        opacity: 0.3,
+        color: 'olive',
+        dashArray: '3',
+        fillOpacity: 0.7
+    };
+}
+
+function style6() {
+    return { 
+        weight: 4,
+        opacity: 1,
+        color: 'red',
+        dashArray: '3',
+        fillOpacity: 0.7
+    };
+}
+
+L.geoJson(statesData, {style: style}).addTo(map);
+
+function highlightFeature(e) {
+    var layer = e.target;
+
+    layer.setStyle({
+        weight: 5,
+        color: '#666',
+        dashArray: '',
+        fillOpacity: 0.7
+    });
+
+    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+        layer.bringToFront();
+    }
+
+    ;
+}
+
+function resetHighlight(e) {
+    geojson.resetStyle(e.target);
+    info.update();
+}
+
+
+function zoomToFeature(e) {
+    map.fitBounds(e.target.getBounds());
+}
+
+function onEachFeature(feature, layer) {
+    layer.on({
+        mouseover: highlightFeature,
+        mouseout: resetHighlight,
+        click: zoomToFeature
+    });
+}
+
+
+
+
+</script>
